@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 using Okta.AspNetCore;
 
@@ -19,11 +20,13 @@ namespace Dotnet5MvcOkta
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                var properties = new AuthenticationProperties();
-                properties.Items.Add("sessionToken", sessionToken);
-                properties.RedirectUri = "/Home/";
+                // var properties = new AuthenticationProperties();
+                // properties.Items.Add("sessionToken", sessionToken);
+                // properties.RedirectUri = "/Home/";
 
-                return Challenge(properties, OktaDefaults.MvcAuthenticationScheme);
+                // return Challenge(properties, OktaDefaults.MvcAuthenticationScheme);
+                return Challenge(OpenIdConnectDefaults.AuthenticationScheme);
+
             }
 
             return RedirectToAction("Index", "Home");
